@@ -1,0 +1,42 @@
+Here are some useful Docker commands for monitoring containers:
+
+Viewing All Running Containers
+   docker ps
+
+Viewing Container Logs
+   docker logs <container_name_or_id>
+
+Viewing Container Logs realtime
+   docker logs --tail 500 --follow --timestamps <container_name_or_id>
+
+Inspecting a Container
+   docker inspect <container_name_or_id>
+
+
+Monitoring Resource Usage (CPU, Memory, Network) for all the running containers
+    docker stats
+  
+  For specific container 
+    docker stats <container_name_or_id>
+
+Viewing Disk Space Usage
+   docker system df
+   
+Checking Network Settings
+   docker network ls
+   docker network inspect <network_name>
+
+Checking for Exposed Ports
+   docker port <container_name_or_id>
+
+Viewing Detailed Container Metrics with cAdvisor
+   If you have cAdvisor set up, you can access it through your browser using:
+   http://<server_ip>:7070
+
+   Depends on the port you exposed , in this case is 7070
+
+Viewing Processes Running Inside a Container
+   docker top <container_name_or_id>
+
+
+These commands should help you effectively monitor your Docker containers.

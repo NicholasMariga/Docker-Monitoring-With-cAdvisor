@@ -1,0 +1,40 @@
+cAdvisor provides insights into resource usage and performance characteristics of running containers, follow these steps:
+
+Ensure you have Docker installed and running on your server where other containers are running which you want to monitor
+
+
+Set up cAdvisor as a docker container by executing the below command:
+
+  docker run \
+  --volume=/:/rootfs:ro \
+  --volume=/var/run:/var/run:ro \
+  --volume=/sys:/sys:ro \
+  --volume=/var/lib/docker/:/var/lib/docker:ro \
+  --volume=/dev/disk/:/dev/disk:ro \
+  --publish=7070:8080 \
+  --detach=true \
+  --privileged \
+  --name=cadvisor \
+  google/cadvisor:latest
+
+
+
+The above commnad mounts necessary paths and exposes cAdvisor on port 7070.
+
+
+
+Accessing cAdvisor
+   Once cAdvisor is running, you can access the web interface by navigating to `http://<your-server-ip>:7070` in your web browser.
+
+
+
+Integration with prometheus, you can scrape cAdvisor metrics by adding the following lines in your prometheus.yml config file.
+
+  vi /etc/prometheus/prometheus.yml
+    scrape_configs:
+      - job_name: 'cadvisor'
+        static_configs:
+          - targets: ['<your-server-ip>:7070']
+
+
+This will set up cAdvisor to monitor your Docker containers' performance metrics. 
